@@ -22,24 +22,25 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 function displayForecast(response) {
-  console.log(response.data);
-  let forecastElement = document.getElementById("forecast");
-  let forecastHTML = `<div class="row">`;
-  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecast = response.data.daily;
 
-  days.forEach(function (day) {
+  let forecastElement = document.getElementById("forecast");
+
+  // let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay) {
     forecastHTML =
       forecastHTML +
       `<div class="col-2">
-                <div class="weather-forecast-date">${day}</div>
+                <div class="weather-forecast-date">${forecastDay.dt}</div>
                 <img
-                  src="http://openweathermap.org/img/wn/04d@2x.png"
+                  src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
                   alt=""
                   width="52"
                 />
                 <div class="weather-forecast-temperatures">
-                  <span class="weather-forecast-temperatures-max">18°</span>
-                  <span class="weather-forecast-temperatures-min">12°</span>
+                  <span class="weather-forecast-temperatures-max">${forecastDay.temp.max}°</span>
+                  <span class="weather-forecast-temperatures-min">${forecastDay.temp.min}°</span>
                 </div>
         </div>`;
   });
@@ -72,9 +73,9 @@ function getForecast(coordinates) {
 }
 
 function displayTemperature(response) {
-  let temperatureElement = document.querySelector("#temperature");
-  let cityElement = document.querySelector("#city");
-  let descriptionElement = document.querySelector("#description");
+  let temperatureElement = document.getElementById("temperature");
+  let cityElement = document.getElementById("city");
+  let descriptionElement = document.getElementById("description");
   let feelsLikeElement = document.querySelector("#feels-like");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
@@ -104,12 +105,12 @@ function search(city) {
 
 function handleSubmit(event) {
   event.preventDefault();
-  let cityInputElement = document.querySelector("#city-input");
+  let cityInputElement = document.getElementById("city-input");
   search(cityInputElement.value);
 }
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
+  let temperatureElement = document.getElementById("temperature");
   // remove the active class the celsius link
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
@@ -120,19 +121,19 @@ function displayCelsiusTemperature(event) {
   event.preventDefault();
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
-  let temperatureElement = document.querySelector("#temperature");
+  let temperatureElement = document.getElementById("temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
 let celsiusTemperature = null;
 
-let form = document.querySelector("#search-form");
+let form = document.getElementById("search-form");
 form.addEventListener("submit", handleSubmit);
 
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
+let fahrenheitLink = document.getElementById("fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
-let celsiusLink = document.querySelector("#celsius-link");
+let celsiusLink = document.getElementById("celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Kyiv");
