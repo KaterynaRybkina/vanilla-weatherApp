@@ -1,3 +1,5 @@
+displayForecast();
+
 function formatDate(timestamp) {
   //calculate the date
   let date = new Date(timestamp);
@@ -21,7 +23,46 @@ function formatDate(timestamp) {
   let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
 }
+function displayForecast() {
+  let forecastElement = document.getElementById("forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+                <div class="weather-forecast-date">${day}</div>
+                <img
+                  src="http://openweathermap.org/img/wn/04d@2x.png"
+                  alt=""
+                  width="52"
+                />
+                <div class="weather-forecast-temperatures">
+                  <span class="weather-forecast-temperatures-max">18°</span>
+                  <span class="weather-forecast-temperatures-min">12°</span>
+                </div>
+        </div>`;
+  });
 
+  // forecastHTML =
+  //   forecastHTML +
+  //   `  <div class="col-2">
+  //               <div class="weather-forecast-date">Tue</div>
+  //               <img
+  //                 src="http://openweathermap.org/img/wn/04d@2x.png"
+  //                 alt=""
+  //                 width="52"
+  //               />
+  //               <div class="weather-forecast-temperatures">
+  //                 <span class="weather-forecast-temperatures-max">18°</span>
+  //                 <span class="weather-forecast-temperatures-min">12°</span>
+  //               </div>
+
+  //           </div>`;
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+  console.log(forecastHTML);
+}
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
@@ -86,3 +127,4 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Kyiv");
+displayTemperature();
