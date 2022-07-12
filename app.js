@@ -37,7 +37,7 @@ function displayForecast(response) {
   // let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
   let forecastHTML = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
-    if (index < 5) {
+    if (index < 6) {
       forecastHTML =
         forecastHTML +
         `<div class="col-2">
@@ -83,7 +83,6 @@ function displayForecast(response) {
 }
 
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiKey = "eae061c95483dd066657bfc7525418ed";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${apiKey}`;
 
@@ -126,32 +125,32 @@ function handleSubmit(event) {
   let cityInputElement = document.getElementById("city-input");
   search(cityInputElement.value);
 }
-function displayFahrenheitTemperature(event) {
-  event.preventDefault();
-  let temperatureElement = document.getElementById("temperature");
-  // remove the active class the celsius link
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-}
-function displayCelsiusTemperature(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let temperatureElement = document.getElementById("temperature");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
-}
+// function displayFahrenheitTemperature(event) {
+//   event.preventDefault();
+//   let temperatureElement = document.getElementById("temperature");
+//   // remove the active class the celsius link
+//   celsiusLink.classList.remove("active");
+//   fahrenheitLink.classList.add("active");
+//   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+//   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+// }
+// function displayCelsiusTemperature(event) {
+//   event.preventDefault();
+//   celsiusLink.classList.add("active");
+//   fahrenheitLink.classList.remove("active");
+//   let temperatureElement = document.getElementById("temperature");
+//   temperatureElement.innerHTML = Math.round(celsiusTemperature);
+// }
 
-let celsiusTemperature = null;
+// let celsiusTemperature = null;
 
 let form = document.getElementById("search-form");
 form.addEventListener("submit", handleSubmit);
 
-let fahrenheitLink = document.getElementById("fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+// let fahrenheitLink = document.getElementById("fahrenheit-link");
+// fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
-let celsiusLink = document.getElementById("celsius-link");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
+// let celsiusLink = document.getElementById("celsius-link");
+// celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Kyiv");
